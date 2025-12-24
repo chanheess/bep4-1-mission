@@ -1,7 +1,5 @@
-package com.back.global.initData;
+package com.back.boundedContext.post.in;
 
-import com.back.boundedContext.member.app.MemberFacade;
-import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.post.app.PostFacade;
 import com.back.boundedContext.post.domain.Post;
 import com.back.boundedContext.post.domain.PostMember;
@@ -15,40 +13,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Configuration
 @Slf4j
-public class DataInit {
-    private final DataInit self;
-    private final MemberFacade memberFacade;
+public class PostDataInit {
+    private final PostDataInit self;
     private final PostFacade postFacade;
 
-    public DataInit(
-            @Lazy DataInit self,
-            MemberFacade memberFacade,
-            PostFacade postFacade
-    ) {
+    public PostDataInit(@Lazy PostDataInit self, PostFacade postFacade) {
         this.self = self;
-        this.memberFacade = memberFacade;
         this.postFacade = postFacade;
     }
 
     @Bean
-    public ApplicationRunner baseInitDataRunner() {
+    public ApplicationRunner basePostDataInitRunner() {
         return args -> {
-            self.makeBaseMembers();
             self.makeBasePosts();
             self.makeBasePostComments();
         };
-    }
-
-    @Transactional
-    public void makeBaseMembers() {
-        if (memberFacade.count() > 0) return;
-
-        Member systemMember = memberFacade.join("system", "1234", "시스템").getData();
-        Member holdingMember = memberFacade.join("holding", "1234", "홀딩").getData();
-        Member adminMember = memberFacade.join("admin", "1234", "관리자").getData();
-        Member user1Member = memberFacade.join("user1", "1234", "유저1").getData();
-        Member user2Member = memberFacade.join("user2", "1234", "유저2").getData();
-        Member user3Member = memberFacade.join("user3", "1234", "유저3").getData();
     }
 
     @Transactional
@@ -100,6 +79,5 @@ public class DataInit {
         post3.addComment(user3Member, "댓글7");
 
         post4.addComment(user1Member, "댓글8");
-        //수정 확인용
     }
 }
