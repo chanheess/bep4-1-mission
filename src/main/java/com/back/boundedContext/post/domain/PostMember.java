@@ -7,20 +7,25 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "POST_MEMBER")
 @NoArgsConstructor
 @Getter
 public class PostMember extends ReplicaMember {
-    public PostMember(String username, String password, String nickname) {
-        super(username, password, nickname);
+    public PostMember(int id, LocalDateTime createDate, LocalDateTime modifyDate, String username, String password, String nickname) {
+        super(id, createDate, modifyDate, username, password, nickname);
     }
 
     public PostMember(MemberDto member) {
-        super(member.getUsername(), "", member.getNickname());
-
-        this.setId(member.getId());
-        this.setCreateDate(member.getCreateDate());
-        this.setModifyDate(member.getModifyDate());
+        super(
+                member.getId(),
+                member.getCreateDate(),
+                member.getModifyDate(),
+                member.getUsername(),
+                "",
+                member.getNickname()
+        );
     }
 }

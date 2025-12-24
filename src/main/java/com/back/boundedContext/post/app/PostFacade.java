@@ -3,6 +3,7 @@ package com.back.boundedContext.post.app;
 import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.post.domain.Post;
 import com.back.boundedContext.post.domain.PostMember;
+import com.back.boundedContext.post.out.PostMemberRepository;
 import com.back.boundedContext.post.out.PostRepository;
 import com.back.global.rsData.RsData;
 import com.back.shared.member.dto.MemberDto;
@@ -16,8 +17,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PostFacade {
     private final PostRepository postRepository;
+    private final PostMemberRepository postMemberRepository;
+
     private final PostWriteUseCase postWriteUseCase;
-    private final PostMemberJoinedUseCase postMemberJoinedUseCase;
 
     @Transactional(readOnly = true)
     public long count() {
@@ -35,7 +37,7 @@ public class PostFacade {
     }
 
     @Transactional
-    public PostMember joinedMember(MemberDto member) {
-        return postMemberJoinedUseCase.joinedMember(member);
+    public PostMember syncMember(MemberDto member) {
+        return postMemberRepository.save(new PostMember(member));
     }
 }
