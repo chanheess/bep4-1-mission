@@ -1,6 +1,7 @@
 package com.back.boundedContext.post.domain;
 
 import com.back.shared.member.domain.ReplicaMember;
+import com.back.shared.member.dto.MemberDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -13,5 +14,13 @@ import lombok.NoArgsConstructor;
 public class PostMember extends ReplicaMember {
     public PostMember(String username, String password, String nickname) {
         super(username, password, nickname);
+    }
+
+    public PostMember(MemberDto member) {
+        super(member.getUsername(), "", member.getNickname());
+
+        this.setId(member.getId());
+        this.setCreateDate(member.getCreateDate());
+        this.setModifyDate(member.getModifyDate());
     }
 }
