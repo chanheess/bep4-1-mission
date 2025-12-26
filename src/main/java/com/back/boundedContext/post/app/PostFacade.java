@@ -17,12 +17,13 @@ import java.util.Optional;
 public class PostFacade {
     private final PostRepository postRepository;
     private final PostMemberRepository postMemberRepository;
-
+    private final PostSupport postSupport;
     private final PostWriteUseCase postWriteUseCase;
+    private final PostSyncMemberUseCase postSyncMemberUseCase;
 
     @Transactional(readOnly = true)
     public long count() {
-        return postRepository.count();
+        return postSupport.count();
     }
 
     @Transactional
@@ -32,17 +33,17 @@ public class PostFacade {
 
     @Transactional(readOnly = true)
     public Optional<Post> findById(int id) {
-        return postRepository.findById(id);
+        return postSupport.findById(id);
     }
 
     @Transactional
     public PostMember syncMember(MemberDto member) {
-        return postMemberRepository.save(new PostMember(member));
+        return postSyncMemberUseCase.syncMember(member);
     }
 
     @Transactional(readOnly = true)
     public Optional<PostMember> findPostMemberByUsername(String username) {
-        return postMemberRepository.findByUsername(username);
+        return postSupport.findMemberByUsername(username);
     }
 
 }
