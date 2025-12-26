@@ -39,7 +39,7 @@ public class PostFacade {
     }
 
     @Transactional(readOnly = true)
-    public Optional<PostMember> findPostMemberByUsername(String username) {
+    public Optional<PostMember> findMemberByUsername(String username) {
         return postSupport.findMemberByUsername(username);
     }
 
