@@ -18,6 +18,6 @@ public class Product extends BaseIdAndTime {
     private int sourceId;
     private String name;
     private String description;
-    private int price;
-    private int salePrice;
+    private long price;
+    private long salePrice;
 }

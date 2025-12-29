@@ -22,13 +22,13 @@ public class OrderItem extends BaseIdAndTime {
 
     private String productName;
 
-    private int price;
+    private long price;
 
-    private int salePrice;
+    private long salePrice;
 
-    private int payoutRate = MarketPolicy.PRODUCT_PAYOUT_RATE;
+    private double payoutRate = MarketPolicy.PRODUCT_PAYOUT_RATE;
 
-    public OrderItem(Order order, Product product, String productName, int price, int salePrice) {
+    public OrderItem(Order order, Product product, String productName, long price, long salePrice) {
         this.order = order;
         this.product = product;
         this.productName = productName;

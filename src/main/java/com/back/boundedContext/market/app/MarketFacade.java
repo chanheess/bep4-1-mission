@@ -43,8 +43,8 @@ public class MarketFacade {
             int sourceId,
             String name,
             String description,
-            int price,
-            int salePrice
+            long price,
+            long salePrice
     ) {
         return marketCreateProductUseCase.saveProduct(
                 seller,

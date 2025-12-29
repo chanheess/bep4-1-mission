@@ -35,6 +35,7 @@ public class CashDataInit {
     public void makeBaseCredits() {
         CashMember cashMember1 = cashFacade.findMemberByUsername("user1").get();
         CashMember cashMember2 = cashFacade.findMemberByUsername("user2").get();
+        CashMember cashMember3 = cashFacade.findMemberByUsername("user3").get();
 
         Wallet wallet1 = cashFacade.findWalletByHolder(cashMember1).get();
 
@@ -49,5 +50,11 @@ public class CashDataInit {
         if (wallet2.hasBalance()) return;
 
         wallet2.credit(150_000, CashLog.EventType.충전__무통장입금);
+
+        Wallet wallet3 = cashFacade.findWalletByHolder(cashMember3).get();
+
+        if (wallet3.hasBalance()) return;
+
+        wallet3.credit(150_000, CashLog.EventType.충전__무통장입금);
     }
 }
